@@ -95,9 +95,3 @@ LeftMotor.stop();
   wait(2, seconds);
   }
 
-  []
-  
-
-  
-
-}
