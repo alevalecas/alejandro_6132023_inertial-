@@ -1,32 +1,103 @@
-# Prerequisites
-*.d
+#pragma region VEXcode Generated Robot Configuration
+// Make sure all required headers are included.
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <math.h>
+#include <string.h>
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
 
-# Precompiled Headers
-*.gch
-*.pch
+#include "vex.h"
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+using namespace vex;
 
-# Fortran module files
-*.mod
-*.smod
+// Brain should be defined by default
+brain Brain;
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
 
-# Executables
-*.exe
-*.out
-*.app
+// START V5 MACROS
+#define waitUntil(condition)                                                   \
+  do {                                                                         \
+    wait(5, msec);                                                             \
+  } while (!(condition))
+
+#define repeat(iterations)                                                     \
+  for (int iterator = 0; iterator < iterations; iterator++)
+// END V5 MACROS
+
+
+// Robot configuration code.
+
+
+
+
+// Helper to make playing sounds from the V5 in VEXcode easier and
+// keeps the code cleaner by making it clear what is happening.
+void playVexcodeSound(const char *soundName) {
+  printf("VEXPlaySound:%s\n", soundName);
+  wait(5, msec);
+}
+
+#pragma endregion VEXcode Generated Robot Configuration
+
+/*----------------------------------------------------------------------------*/
+/*                                                                            */
+/*    Module:       main.cpp                                                  */
+/*    Author:       {author}                                                  */
+/*    Created:      {date}                                                    */
+/*    Description:  V5 project                                                */
+/*                                                                            */
+/*----------------------------------------------------------------------------*/
+
+// Include the V5 Library
+#include "vex.h"
+  
+// Allows for easier use of the VEX Library
+using namespace vex;
+
+// Setting the Inertial sensor 
+  inertial Inertial10 = inertial(PORT10);
+// Robot configuration code.
+  motor LeftDriveSmart = motor(PORT1, ratio18_1, false);
+  motor RightDriveSmart = motor(PORT2, ratio18_1, true);
+
+int main() {
+  // Starts the Calibratrion 
+void vex::inertial:: startCalibration	(	int32_t 	value = 0	);
+  // waits for Inertial Sensor to calibrate 
+  wait(100, msec);
+
+  // Makes the left motor spin
+  LeftMotor.spin(forward, 1080, degrees);
+  // Allows right motor to spin along with the left motor
+  if (LeftMotor.isSpinning) {
+    RightMotor.spin(forward);
+  }
+  else {
+    RightMotor.stop();
+  }
+  
+
+
+LeftMotor.spin(forward);
+wait(1000, msec);
+LeftMotor.stop();
+
+
+  // Turns the robot to the right
+  LeftMotor.spin(forward);
+  RightMotor.spin(reverse);
+  // Waits until the motor reaches a 90 degree turn and stops the Left and
+  // Right Motors.
+  waitUntil((Inertial10.rotation(degrees) >= 90.0));
+  LeftMotor.stop();
+  RightMotor.stop();
+  wait(2, seconds);
+  }
+
+  []
+  
+
+  
+
+}
